@@ -303,8 +303,9 @@
   </div>
 
   <div class="thanks" id="thanks">
-    <h2>✅ 回答ありがとうございます！</h2>
-    <p>アンケートの回答を送信しました。</p>
+    <div style="font-size:48px;margin-bottom:16px">✅</div>
+    <h2>送信完了しました！</h2>
+    <p style="margin-top:8px">回答ありがとうございます。<br>このページは閉じて大丈夫です。</p>
   </div>
 </div>
 
@@ -367,7 +368,6 @@ function showToast(msg, isError) {
 
 async function submitSurvey() {
   answers.name = document.getElementById('nameInput').value.trim();
-  answers.q2_detail = document.getElementById('q2Text').value.trim();
   answers.q3 = document.getElementById('q3Text').value.trim();
 
   let hasError = false;
@@ -426,11 +426,12 @@ async function submitSurvey() {
     await fetch(GAS_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(row),
     });
     document.getElementById('formArea').classList.add('hide');
     document.getElementById('thanks').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (e) {
     showToast('送信エラー: ' + e.message, true);
     btn.disabled = false;
